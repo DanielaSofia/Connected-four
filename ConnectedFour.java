@@ -2,9 +2,9 @@ import java.util.*;
 
 class Board{
 
-	public int lines = 7;
-	public int columns = 6;
-	public int[][] board = new int[7][6];
+	public int lines = 6;
+	public int columns = 7;
+	public int[][] board = new int[6][7];
 
 
 	// clean the initial matrix
@@ -40,7 +40,7 @@ class Board{
 	}
 
 	public boolean CheckMove(int[][] board, int col){
-		if(col>=0 && col<6){
+		if(col>=0 && col<7){
 			for (int i=lines-1;i>0;i--) {
 				if(board[i][col]==0){
 					return true;
@@ -104,7 +104,7 @@ class Board{
 			j--;
 		}
 
-		// Diagonal
+		/*// Diagonal
 		p1=0;
 		p2=0;
         	
@@ -115,7 +115,7 @@ class Board{
         if(p1==4) return 1;
 		if(p2==4) return 2;
 		p1=0;
-		p2=0;
+		p2=0;*/
 
 		
 	return 0;
