@@ -140,7 +140,7 @@ public class ConnectedFour{
 		Board b = new Board();
 		// selected column
 		int scol=0;
-
+	 
 		b.BlankBoard(b.board);
 		b.PrintBoard(b.board);
 
