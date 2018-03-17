@@ -105,7 +105,17 @@ class Board{
 		}
 
 		// Diagonal
+		p1=0;
+		p2=0;
+        	
 
+
+
+
+        if(p1==4) return 1;
+		if(p2==4) return 2;
+		p1=0;
+		p2=0;
 
 		
 	return 0;
