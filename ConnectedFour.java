@@ -64,59 +64,93 @@ class Board{
 	public int Win(int[][] board){
 
 		// Vertical
-		int p1=0;
-		int p2=0;
+		int count=0;
+		int current=-1;
+
 		int j=columns-1;
 		while(j>=0){
-			for (int i=lines-1;i>0;i--) {
-				if(board[i][j]==1)
-					p1++;
-				if(board[i][j]==2)
-					p2++;
 
+			for (int i=lines-1;i>0;i--) {
 				
+				if(current==-1){
+					count++;
+					current=board[i][j];
+					continue;
+				}
+				
+				if (current!=board[i][j]) {
+					count=1;
+					current=board[i][j];
+				} 
+				else if(current!=0) 
+						count++;
+
+				if(count==4) return current;
 			}
-			if(p1==4) return 1;
-			if(p2==4) return 2;
-			p1=0;
-			p2=0;
+			
+			
 			j--;
 		}
 		
-		p1=0;
-		p2=0;
-
+		count=0;
+		current=-1;
 		// Horizontal
 		j=lines-1;
 		while(j>=0){
-			for (int i=columns-1;i>0;i--) {
-				if(board[j][i]==1)
-					p1++;
-				if(board[j][i]==2)
-					p2++;
 
+
+				for (int i=columns-1;i>0;i--) {
 				
+				if(current==-1){
+					count++;
+					current=board[j][i];
+					continue;
+				}
+				
+				if (current!=board[j][i]) {
+					count=1;
+					current=board[j][i];
+				} 
+				else if(current!=0) 
+						count++;
+
+				if(count==4) return current;
 			}
-			if(p1==4) return 1;
-			if(p2==4) return 2;
-			p1=0;
-			p2=0;
+			
 			j--;
 		}
+		
 
-		/*// Diagonal
-		p1=0;
-		p2=0;
-        	
+		// Diagonal
+		
 
+		
+		current=-1;
 
+		for (int i=0;i<lines-1;i++) {
+			for ( j=0;j<columns-1;j++) {
 
+				if (board[i][j]==0) {
+					continue;
+				}
 
-        if(p1==4) return 1;
-		if(p2==4) return 2;
-		p1=0;
-		p2=0;*/
+				if(i+3 < lines && j+3 < columns){
+					if ((board[i][j]==board[i+1][j+1])&&(board[i+1][j+1]==board[i+2][j+2])&&(board[i+2][j+2]==board[i+3][j+3])){
+						return board[i][j];
+						
+					}
+				}
 
+				if(i+3 < lines && j-3 < columns){
+					if ((board[i][j]==board[i+1][j-1])&&(board[i+1][j-1]==board[i+2][j-2])&&(board[i+2][j-2]==board[i+3][j-3])){
+						return board[i][j];
+						
+					}
+				}
+			}
+			
+		}
+       
 		
 	return 0;
 
