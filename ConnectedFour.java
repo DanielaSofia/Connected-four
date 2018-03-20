@@ -7,6 +7,7 @@ class Board {
 	public int[][] board = new int[6][7];
 
 	// clean the initial matrix
+	 
 	public void BlankBoard(int[][] board) {
 
 		for (int i = 0; i < lines; i++) {
@@ -16,6 +17,7 @@ class Board {
 		}
 	}
 
+	//Prints Board
 	public void PrintBoard(int[][] board) {
 
 		for (int i = 0; i < lines; i++) {
@@ -38,6 +40,7 @@ class Board {
 
 	}
 
+	//Check if move is valid
 	public boolean CheckMove(int[][] board, int col) {
 		if (col >= 0 && col < 7) {
 			for (int i = lines - 1; i > 0; i--) {
@@ -49,6 +52,7 @@ class Board {
 		return false;
 	}
 
+	//make move on the board
 	public int[][] MakeMove(int[][] board, int col, int player) {
 
 		for (int i = lines - 1; i > 0; i--) {
@@ -60,12 +64,12 @@ class Board {
 		return board;
 	}
 
+	//Check if anyone wins
 	public int Win(int[][] board) {
 
 		// Vertical
 		int count = 0;
 		int current = -1;
-
 		int j = columns - 1;
 		while (j >= 0) {
 
@@ -76,7 +80,6 @@ class Board {
 					current = board[i][j];
 					continue;
 				}
-
 				if (current != board[i][j]) {
 					count = 1;
 					current = board[i][j];
@@ -91,11 +94,9 @@ class Board {
 
 		count = 0;
 		current = -1;
-
 		// Horizontal
 		j = lines - 1;
 		while (j >= 0) {
-
 			for (int i = columns - 1; i > 0; i--) {
 
 				if (current == -1) {
@@ -190,6 +191,8 @@ public class ConnectedFour {
 
 		Scanner in = new Scanner(System.in);
 		Board b ;
+		int playfirst;
+		double startTime;
 		// selected column
 		int scol=0;
 		System.out.print("How do you want to play?\n MinMax(1) or Alfa-Beta(2)? \nOption: "); 
@@ -198,58 +201,82 @@ public class ConnectedFour {
 			
 			// MinMax
 			System.out.print("Who plays first? Computer(1) ou Human(2)\nOption: ");
-			int playfirst = in.nextInt();
-			double startTime = Math.pow(10,-9)*System.nanoTime();
+			playfirst = in.nextInt();
+			startTime = Math.pow(10,-9)*System.nanoTime();
 
 			if(playfirst == 1) {
 				// Computer Play
 				b = new Board();
 				b.BlankBoard(b.board);
 				b.PrintBoard(b.board);
-				System.out.println("Computer: ");
-		
-				while(!b.CheckMove(b.board,scol)){
-
-					System.out.println("Player1 play valid!");
-					scol=in.nextInt();
-				}
-
-				b.board=b.MakeMove(b.board,scol,1);
+				System.out.println("Computer Play:");
+				//chama funcao minimax
 				if(b.Win(b.board) == 1){
 					b.PrintBoard(b.board);
-					System.out.println("Player 1 Wins !!");
+					System.out.println("Computer Wins !!");
 					System.exit(0);
-
 				}
 				b.PrintBoard(b.board);
 
 			}else {
-
-				System.out.println("Computer play!");
-
-				// select column
+				b = new Board();
+				System.out.println("Human play!");
 				scol=in.nextInt();
 
 				while(!b.CheckMove(b.board,scol)){
-
-					System.out.println("Player2 play valid!");
+					System.out.println("Human play valid!");
 					scol=in.nextInt();
 				}
-
 				b.board=b.MakeMove(b.board,scol,2);
 				if(b.Win(b.board) == 2){
 					b.PrintBoard(b.board);
-					System.out.println("Player 2 Wins !!");
+					System.out.println("Human Wins !!");
 					System.exit(0);
-
 				}
 				b.PrintBoard(b.board);
 			}
 
+		}else {				
+			// Alpha-Beta
+			System.out.print("Who plays first? Computer(1) ou Human(2)\nOption: ");
+			playfirst = in.nextInt();
+			startTime = Math.pow(10,-9)*System.nanoTime();
+	
+			if(playfirst == 2) {
+				// Computer Play
+				b = new Board();
+				b.BlankBoard(b.board);
+				b.PrintBoard(b.board);
+				System.out.println("Computer Play:");
+				// Calls Alpha-Beta
+				
+				if(b.Win(b.board) == 1){
+					b.PrintBoard(b.board);
+					System.out.println("Computer Wins !!");
+					System.exit(0);
+				}
+				b.PrintBoard(b.board);
+	
+			}else {
+				
+				b = new Board();
+				System.out.println("Human play!");
+				scol=in.nextInt();
+				while(!b.CheckMove(b.board,scol)){
+					System.out.println("Human play valid!");
+					scol=in.nextInt();
+				}
+				b.board=b.MakeMove(b.board,scol,2);
+				if(b.Win(b.board) == 2){
+					b.PrintBoard(b.board);
+					System.out.println("Human Wins !!");
+					System.exit(0);
+				}
+				b.PrintBoard(b.board);
+			}
 		}
 
 
-
 	}
-}
+			
 }
