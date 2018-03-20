@@ -6,7 +6,6 @@ class Board{
 	public int columns = 7;
 	public int[][] board = new int[6][7];
 
-
 	// clean the initial matrix
 	public void BlankBoard(int [][] board){
 
@@ -31,11 +30,11 @@ class Board{
         
         for(int i=0;i<columns;i++)
             System.out.print("*  ");
-        System.out.println();
+        	System.out.println();
         
         for(int i=0;i<columns;i++)
             System.out.print(i+"  ");
-        System.out.println();
+        	System.out.println();
 
 	}
 
@@ -87,13 +86,12 @@ class Board{
 
 				if(count==4) return current;
 			}
-			
-			
 			j--;
 		}
 		
 		count=0;
 		current=-1;
+		
 		// Horizontal
 		j=lines-1;
 		while(j>=0){
@@ -111,8 +109,7 @@ class Board{
 					count=1;
 					current=board[j][i];
 				} 
-				else if(current!=0) 
-						count++;
+				else if(current!=0) count++;
 
 				if(count==4) return current;
 			}
@@ -122,10 +119,6 @@ class Board{
 		
 
 		// Diagonal
-		
-
-		
-		current=-1;
 
 		for (int i=0;i<lines-1;i++) {
 			for ( j=0;j<columns-1;j++) {
@@ -135,29 +128,70 @@ class Board{
 				}
 
 				if(i+3 < lines && j+3 < columns){
-					if ((board[i][j]==board[i+1][j+1])&&(board[i+1][j+1]==board[i+2][j+2])&&(board[i+2][j+2]==board[i+3][j+3])){
+					if ((board[i][j]==board[i+1][j+1])&&(board[i+1][j+1]==board[i+2][j+2])&&(board[i+2][j+2]==board[i+3][j+3]))
 						return board[i][j];
-						
-					}
+					
 				}
-
 				if(i+3 < lines && j-3 < columns){
-					if ((board[i][j]==board[i+1][j-1])&&(board[i+1][j-1]==board[i+2][j-2])&&(board[i+2][j-2]==board[i+3][j-3])){
+					if ((board[i][j]==board[i+1][j-1])&&(board[i+1][j-1]==board[i+2][j-2])&&(board[i+2][j-2]==board[i+3][j-3]))
 						return board[i][j];
-						
-					}
 				}
 			}
-			
 		}
-       
-		
 	return 0;
-
 	}
 
-
 }
+
+class Minimax {
+	
+		Board b = new Board();
+		ArrayList<int[][]> Successors = new ArrayList<int[][]>();
+		int[][] state = new int[b.lines][b.columns];
+		int v=0;
+		int mv=0;
+		
+		public void Minimax_Decision(int[][] board) {
+			state=board;
+			v = Max_Value(state);
+			return /*action in Successors(state) with value V*/;
+		}
+		
+		public int Max_Value(int[][] current){
+			if (b.Win(current)==0) 
+				return Utility(state);
+			v=-9999;
+			
+			for (int[][] item : Successors) {
+				v=Max(v,Min_Value(item));
+			}
+			return v;
+		}
+		
+		public int  Min_Value(int[][] state) {
+			
+			if (b.Win(current)==0) 
+				return Utility(state);
+			
+			v=-9999;
+			for (int[][] item : Successors) {
+				v=Min(v,Max_Value(item));
+			}
+			return v;
+			
+		}
+	
+
+	
+	
+	
+	
+}
+
+
+
+
+
 
 
 
